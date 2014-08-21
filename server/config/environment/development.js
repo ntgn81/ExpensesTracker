@@ -5,8 +5,8 @@
 module.exports = {
   // MongoDB connection options
   mongo: {
-    uri: 'mongodb://localhost/expensestracker-dev'
+    uri: 'mongodb://localhost/toptalexpensestracker-dev'
   },
 
-  seedDB: true
+  seedDB: false  
 };

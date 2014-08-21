@@ -5,27 +5,72 @@
 
 'use strict';
 
-var Thing = require('../api/thing/thing.model');
+var Expense = require('../api/expense/expense.model');
+var User = require('../api/user/user.model');
 
+function createExpenses(userId) {
+  Expense.find({}).remove(function() {
+    Expense.create({
+      userId: userId,
+      date: '20140818',
+      time: '2300',
+      description: 'One hour ago',
+      amount: 5.22,
+      comment: 'Comment #1'
+    },{
+      userId: userId,
+      date: '20140718',
+      time: '2200',
+      description: 'Two hour ago',
+      amount: 5.22,
+      comment: 'Comment #2'
+    },{
+      userId: userId,
+      date: '20140618',
+      time: '2100',
+      description: 'Three hour ago',
+      amount: 5.22,
+      comment: 'Comment #3'
+    },{
+      userId: userId,
+      date: '20140418',
+      time: '2000',
+      description: 'Four hour ago',
+      amount: 5.22,
+      comment: 'Comment #4'
+    },{
+      userId: userId,
+      date: '20140417',
+      time: '1900',
+      description: 'Five hour ago',
+      amount: 5.22,
+      comment: 'Comment #5'
+    },{
+      userId: userId,
+      date: '20140416',
+      time: '1800',
+      description: 'Six hour ago',
+      amount: 5.22,
+      comment: 'Comment #6'
+    },function (err, res) {
+      console.log('error craeting expenses', err);
+    });
+  });  
+}
 
-Thing.find({}).remove(function() {
-  Thing.create({
-    name : 'Development Tools',
-    info : 'Integration with popular tools such as Bower, Grunt, Karma, Mocha, JSHint, Node Inspector, Livereload, Protractor, Jade, Stylus, Sass, CoffeeScript, and Less.'
+User.find({}).remove(function() {
+  User.create({
+    email: 't',
+    password: 't'
   }, {
-    name : 'Server and Client integration',
-    info : 'Built with a powerful and fun stack: MongoDB, Express, AngularJS, and Node.'
+    email: 'test@test.com',
+    password: 'test'
   }, {
-    name : 'Smart Build System',
-    info : 'Build system ignores `spec` files, allowing you to keep tests alongside code. Automatic injection of scripts and styles into your index.html'
-  },  {
-    name : 'Modular Structure',
-    info : 'Best practice client and server structures allow for more code reusability and maximum scalability'
-  },  {
-    name : 'Optimized Build',
-    info : 'Build process packs up your templates as a single JavaScript payload, minifies your scripts/css/images, and rewrites asset names for caching.'
-  },{
-    name : 'Deployment Ready',
-    info : 'Easily deploy your app to Heroku or Openshift with the heroku and openshift subgenerators'
-  });
+    email: 'admin@admin.com',
+    password: 'admin'
+  }, function(err, user) {
+      console.log('finished populating users');
+      createExpenses(user._id);
+    }
+  );
 });
