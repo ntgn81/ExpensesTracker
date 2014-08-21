@@ -1,0 +1,39 @@
+//- .modal-header
+//-   h3.modal-title
+//-     | header
+
+form.form(name='form', ng-submit='submit(form)')
+  .modal-body.expense-edit
+      .row
+        .col-sm-6
+          .form-group(ng-class='{"has-error": form.date.$invalid}')
+            label.control-label(for="date") Date
+            input#date.form-control(name="date", ui-mask="9999-99-99", ng-model="expense.date", focus, required="")
+            p.help-block(ng-show='form.date.$error.mongoose')
+              | {{ errors.date }}
+        .col-sm-6
+          .form-group(ng-class='{"has-error": form.time.$invalid}')
+            label.control-label(for="time") Time
+            input#time.form-control(name="time", ui-mask="99:99", ng-model="expense.time", required="")
+            p.help-block(ng-show='form.time.$error.mongoose')
+              | {{ errors.time }}
+      .row
+        .col-sm-6
+          .form-group(ng-class='{"has-error": form.description.$invalid}')
+            label.control-label(for="description") Description        
+            input#description.form-control(name="description", ng-model="expense.description", required="")
+        .col-sm-6
+          .form-group(ng-class='{"has-error": form.amount.$invalid}')
+            label.control-label(for="amount") Amount
+            input#amount.form-control(name="amount", type="number", step="0.01" ng-model="expense.amount", required="")
+            p.help-block(ng-show='form.amount.$error.mongoose')
+              | {{ errors.amount }}
+      .row
+        .col-sm-12
+          .form-group
+            label.control-label(for="expenseComment") Comment        
+            input#comment.form-control(type="text", ng-model="expense.comment")
+  .modal-footer
+    button.btn.btn-primary(type="submit", ng-if="expense._id") Update
+    button.btn.btn-primary(type="submit", ng-if="!expense._id") Create
+    button.btn.btn-warning(ng-click="cancel()") Cancel
