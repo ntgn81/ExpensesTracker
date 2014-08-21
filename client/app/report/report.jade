@@ -1,0 +1,18 @@
+div(ng-include='"components/navbar/navbar.html"')
+
+
+.container.report
+  .row
+    .col-sm-12
+      table.table.table-hover
+        thead
+          tr
+            th Week ending
+            th Total
+            th Daily average
+        tbody
+          tr(ng-repeat="week in weeklyExpenses")
+            td {{week._id | formatDate}}
+            td {{week.total | currency: '$'}}
+            td {{week.average | currency: '$'}}
+  hr

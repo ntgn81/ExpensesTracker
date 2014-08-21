@@ -1,25 +1,44 @@
 div(ng-include='"components/navbar/navbar.html"')
 
-header#banner.hero-unit
-  .container
-    h1 'Allo, 'Allo!
-    p.lead Kick-start your next web app with Angular Fullstack
-    img(src='assets/images/yeoman.png', alt='I\'m Yeoman')
-
 .container
-  .row
-    .col-lg-12
-      h1.page-header Features:
-      ul.nav.nav-tabs.nav-stacked.col-md-4.col-lg-4.col-sm-6(ng-repeat='thing in awesomeThings')
-        li
-          a(href='#', tooltip='{{thing.info}}')
-            | {{thing.name}}
+  button.btn.btn-primary(ng-click="add()")
+    i.icon-add
+    | Add Expense
 
-footer.footer
-  .container
-    p
-      | Angular Fullstack v2.0.10
-      = ' | '
-      a(href='https://twitter.com/tyhenkel') @tyhenkel
-      = ' | '
-      a(href='https://github.com/DaftMonk/generator-angular-fullstack/issues?state=open') Issues
+.container.expenses
+  .row
+    .col-sm-12
+      table.table.table-hover
+        thead
+          tr
+            th
+              | Date
+              input.form-control(type="text", ng-model="dateFilter", ui-mask="9999-99-99")
+            th
+              | Time
+              input.form-control(type="text", ng-model="timeFilter", ui-mask="99:99")
+            th
+              | Description
+              input.form-control(type="text", ng-model="descriptionFilter")
+            th
+              | Amount
+              input.form-control(type="text", ng-model="amountFilter")
+            th 
+              | Comment
+              input.form-control(type="text", ng-model="commentFilter")
+            th
+        tbody
+          tr(ng-repeat="expense in expenses | orderBy:['date','time']:true | filter: {date: dateFilter, time: timeFilter, description: descriptionFilter, amount: amountFilter, comment: commentFilter}")
+            td {{expense.date | formatDate}}
+            td {{expense.time | formatTime}}
+            td {{expense.description}}
+            td {{expense.amount | currency: '$'}}
+            td {{expense.comment}}
+            td
+              button.btn.btn-xs.btn-warning(ng-click="edit(expense)")
+                span.glyphicon.glyphicon-pencil
+              | &nbsp;
+              button.btn.btn-xs.btn-danger(ng-click="delete(expense)")
+                span.glyphicon.glyphicon-remove
+
+  hr

@@ -3,9 +3,9 @@
 angular.module('expensesTrackerApp')
   .config(function ($routeProvider) {
     $routeProvider
-      .when('/', {
-        templateUrl: 'app/main/main.html',
-        controller: 'MainCtrl',
+      .when('/report', {
+        templateUrl: 'app/report/report.html',
+        controller: 'ReportCtrl',
         authenticate: true
       });
   });
